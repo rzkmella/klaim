@@ -3,13 +3,13 @@
   <persistence-unit name="com.project_klaim_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.project.klaim.entity.TblKlaim</class>
-    <class>com.project.klaim.entity.TblUser</class>
     <class>com.project.klaim.entity.TblProvinsi</class>
     <class>com.project.klaim.entity.TblRole</class>
     <class>com.project.klaim.entity.TblKota</class>
     <class>com.project.klaim.entity.TblApproval</class>
     <class>com.project.klaim.entity.TblTransportasi</class>
     <class>com.project.klaim.entity.TblApprovalStatus</class>
+    <class>com.project.klaim.entity.TblUser</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_klaim"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

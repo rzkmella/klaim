@@ -38,9 +38,12 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
     @Override //mengatur map kemana
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/approval/*").hasRole("admin")
-                .antMatchers("/klaim").hasRole("employee")
+                .antMatchers("approval/").hasRole("admin")
+                .antMatchers("role/").hasRole("admin")
+                .antMatchers("klaim/").hasRole("employee")
                 .antMatchers("/").permitAll()
+                .antMatchers("/password/forgot").permitAll()
+                .antMatchers("/password/forgot/request").permitAll()
                 .and()
                 .formLogin()
 //                .loginPage("/loginpage")

@@ -6,10 +6,8 @@
 package com.project.klaim.repository;
 
 import com.project.klaim.entity.TblRole;
-import com.project.klaim.entity.TblUser;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,6 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RoleRepository extends CrudRepository<TblRole, Integer>{
-//     @Query(value = "SELECT * FROM Tbl_user WHERE email_user= :emailUser", nativeQuery = true)
-//    public TblUser getEmail(@Param("emailUser") String emailUser);
+    @Query(value = "SELECT * FROM tbl_role WHERE tbl_role.status_role = 1", nativeQuery = true)
+    public Iterable<TblRole> getRoleActive();
 }

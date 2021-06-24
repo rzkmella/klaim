@@ -25,7 +25,7 @@ public class NewUserDetail implements UserDetails {
     public NewUserDetail(String emailUser, String passwordUser, String namaRole) {
         this.emailUser = emailUser;
         this.passwordUser = passwordUser;
-        this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_:" + namaRole));// di custom dsini jadi hanya bisa memakai satu role
+        this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_" + namaRole));// di custom dsini jadi hanya bisa memakai satu role
     }
 
     @Override

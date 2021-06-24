@@ -6,9 +6,7 @@
 package com.project.klaim.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,10 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblUser.findByNamaLengkapUser", query = "SELECT t FROM TblUser t WHERE t.namaLengkapUser = :namaLengkapUser"),
     @NamedQuery(name = "TblUser.findByEmailUser", query = "SELECT t FROM TblUser t WHERE t.emailUser = :emailUser"),
     @NamedQuery(name = "TblUser.findByPasswordUser", query = "SELECT t FROM TblUser t WHERE t.passwordUser = :passwordUser"),
-    @NamedQuery(name = "TblUser.findByNoRekeningUser", query = "SELECT t FROM TblUser t WHERE t.noRekeningUser = :noRekeningUser")})
+    @NamedQuery(name = "TblUser.findByNoRekeningUser", query = "SELECT t FROM TblUser t WHERE t.noRekeningUser = :noRekeningUser"),
+    @NamedQuery(name = "TblUser.findByToken", query = "SELECT t FROM TblUser t WHERE t.token = :token")})
 public class TblUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,13 +55,11 @@ public class TblUser implements Serializable {
     @Basic(optional = false)
     @Column(name = "no_rekening_user")
     private String noRekeningUser;
+    @Column(name = "token")
+    private String token;
     @JoinColumn(name = "id_role", referencedColumnName = "id_role")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TblRole idRole;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.LAZY)
-    private List<TblApproval> tblApprovalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.LAZY)
-    private List<TblKlaim> tblKlaimList;
 
     public TblUser() {
     }
@@ -121,30 +116,20 @@ public class TblUser implements Serializable {
         this.noRekeningUser = noRekeningUser;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public TblRole getIdRole() {
         return idRole;
     }
 
     public void setIdRole(TblRole idRole) {
         this.idRole = idRole;
-    }
-
-    @XmlTransient
-    public List<TblApproval> getTblApprovalList() {
-        return tblApprovalList;
-    }
-
-    public void setTblApprovalList(List<TblApproval> tblApprovalList) {
-        this.tblApprovalList = tblApprovalList;
-    }
-
-    @XmlTransient
-    public List<TblKlaim> getTblKlaimList() {
-        return tblKlaimList;
-    }
-
-    public void setTblKlaimList(List<TblKlaim> tblKlaimList) {
-        this.tblKlaimList = tblKlaimList;
     }
 
     @Override

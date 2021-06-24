@@ -27,15 +27,19 @@ public class UserDetailServiceCustome implements UserDetailsService{
     private UserService userService;
     
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
+    
+//    @Autowired
+//    private RoleRepository roleRepository;
     
     @Override
     public UserDetails loadUserByUsername(String emailUser) throws UsernameNotFoundException {
         
         TblUser user = userService.getEmail(emailUser);
+    
         
-        
-     
+//        TblRole rolee = roleService.getRoleById(roleid);
+                    
         
         String email = user.getEmailUser();
         System.out.println("email " +email);
@@ -44,7 +48,8 @@ public class UserDetailServiceCustome implements UserDetailsService{
         Integer roleid = user.getIdRole().getIdRole();
         System.out.println("role " +roleid);
         
-        Optional<TblRole> rolee = roleRepository.findById(roleid);
+        Optional<TblRole> rolee = roleService.getRoleById(roleid);
+        //Optional<TblRole> rolee = roleRepository.findById(roleid);
         String role = rolee.get().getNamaRole();       
         System.out.println("role " +role);
         
