@@ -1,16 +1,41 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<form th:fragment="form">
+    <div class="modal fade" id="editTransportasi" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title"><span class="fa fa-plus-circle"></span> Edit Transportasi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Id Transportasi<span class="redColor">*</span></label>
+                        <div class="form-line">                        
+                            <input type="text" name="idTransportasi" class="idTransportasiEdit form-control" placeholder="" required>
+                        </div>
+
+                        <label>Name Transportasi<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" name="namaTransportasi" class="namaTransportasiEdit form-control" placeholder="" required>
+                        </div>
+                        
+<!--                        <label>Biaya Transportasi<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="number" name="biayaTransportasi" class="biayaTransportasiEdit form-control" placeholder="" required>
+                        </div>-->
+                        
+                        <label>Status Transportasi<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" name="statusTransportasi" class="statusTransportasiEdit form-control" placeholder="" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="add-row" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

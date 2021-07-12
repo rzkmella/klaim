@@ -55,6 +55,37 @@ public class TblApproval implements Serializable {
         this.idApproval = idApproval;
     }
 
+//    public TblApproval(Object idUserManagerObject, Object idApprovalStatusObject, Object idKlaimObject) {
+//        this.idUser = (TblUser) idUser;
+//        this.idApprovalStatus = (TblApprovalStatus) idApprovalStatus;
+//        this.idKlaim = (TblKlaim) idKlaim;
+//    }
+
+//    public TblApproval(Object idApprovalStatusObject, Object idKlaimObject, Object idUserObject) {
+//        this.idApprovalStatus = (TblApprovalStatus) idApprovalStatus;
+//        this.idKlaim = (TblKlaim) idKlaim;
+//        this.idUser = (TblUser) idUser;
+//    }
+
+    public TblApproval(Integer idApproval, Object idApprovalStatusObject, Object idKlaimObject, Object idUserObject) {
+        this.idApproval = idApproval;
+        this.idApprovalStatus = (TblApprovalStatus) idApprovalStatus;
+        this.idKlaim = (TblKlaim) idKlaim;
+        this.idUser = (TblUser) idUser;
+    }
+
+    public TblApproval(Object idApprovalStatusObject, Object idKlaimObject) {
+        this.idApprovalStatus = (TblApprovalStatus) idApprovalStatus;
+        this.idKlaim = (TblKlaim) idKlaim;
+ 
+    }
+
+    public TblApproval(Integer idApproval, Object idApprovalStatusObject, Object idKlaimObject) {
+        this.idApproval = idApproval;
+        this.idApprovalStatus = (TblApprovalStatus) idApprovalStatus;
+        this.idKlaim = (TblKlaim) idKlaim;
+    }
+
     public Integer getIdApproval() {
         return idApproval;
     }

@@ -1,0 +1,38 @@
+<form th:fragment="form">
+    <div class="modal fade" id="removeTransportasi" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="fa fa-trash"></span> Remove Tranportasi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Id Transportasi<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="idTransportasi" class="idTransportasiRemove form-control" placeholder="" disabled>
+                    </div>
+                    <label>Nama Transportasi<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="namaTransportasi" class="namaTransportasiRemove form-control" placeholder="" disabled>
+                    </div>
+<!--                    <label>Biaya Transportasi<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="number" name="biayaTransportasi" class="biayaTransportasiRemove form-control" placeholder="" disabled>
+                    </div>-->
+                    <label>Status Transportasi<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="statusTransportasi" class="statusTransportasiRemove form-control" placeholder="" readonly>
+                    </div>
+
+                    <strong>Are you sure to remove <b>Transportasi</b> <u><span class="namaTransportasiRemoveText"></span></u> ?</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="remove-row" name="Remove" class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

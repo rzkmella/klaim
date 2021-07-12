@@ -23,5 +23,7 @@ public interface UserRepository extends CrudRepository<TblUser, Integer>{
     @Query(value = "SELECT u.password_user FROM Tbl_user u WHERE password_user= :passwordUser", nativeQuery = true)
     public TblUser getPassword(@Param("passwordUser") String passworUser);
     
+    @Query(value = "SELECT * FROM tbl_user WHERE tbl_user.status_user = 1", nativeQuery = true)
+    public Iterable<TblUser> getUserActive();
 }
 

@@ -1,16 +1,35 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<form th:fragment="form">
+    <div class="modal fade" id="editApprovalStatus" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title"><span class="fa fa-plus-circle"></span> Edit Approval Status</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label hidden>Id ApplicationStatus<span class="redColor">*</span></label>
+                        <div class="form-line" hidden>                        
+                            <input type="text" name="idApprovalStatus" class="idApprovalStatusEdit form-control" placeholder="Consultation Status Id" required>
+                        </div>
+
+                        <label>Name ApplicationStatus<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" name="namaApprovalStatus" class="namaApprovalStatusEdit form-control" placeholder="Consultation Status Name" required>
+                        </div>
+                        <label hidden>Status ApplicationStatus<span class="redColor">*</span></label>
+                        <div class="form-line" hidden>
+                            <input type="text" name="approvalStatus" class="approvalStatusEdit form-control" placeholder="Consultation Status Active" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="add-row" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

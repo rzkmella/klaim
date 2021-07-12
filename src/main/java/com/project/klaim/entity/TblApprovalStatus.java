@@ -64,6 +64,7 @@ public class TblApprovalStatus implements Serializable {
         this.approvalStatus = approvalStatus;
     }
 
+
     public Integer getIdApprovalStatus() {
         return idApprovalStatus;
     }

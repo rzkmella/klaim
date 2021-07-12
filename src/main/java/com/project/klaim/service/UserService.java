@@ -30,6 +30,16 @@ public class UserService implements UserInterface{
     public TblUser getPassword(String passwordUser) {
         return userRepository.getPassword(passwordUser);
     }
+
+    @Override
+    public void save(TblUser user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public Iterable<TblUser> getUserActive() {
+        return userRepository.getUserActive();
+    }
     
     
 }

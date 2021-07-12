@@ -4,47 +4,135 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-        <nav class="mt-2">
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+</a>
+
+<div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+
+        </div>
+    </div>
+
+    <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>         
-          </li>
-          <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                ROLE
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                APPROVAL
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          
-        </ul>
-      </nav>
-    </body>
-</html>
+            <li class="nav-item">
+                <a href="app/dashboard" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Dashboard
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/approvalStatus}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Approval Status
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/role}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Role
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/user}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        User
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/provinsi}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Provinsi
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/kota}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Kota
+                    </p>
+                </a>
+            </li>
+             <li class="nav-item">
+                <a th:href="@{/transportasi}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Transportasi
+                    </p>
+                </a>
+            </li>
+<!--            <li class="nav-item">
+                <a th:href="@{/TrTransportasiKlaim}" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Transportasi Detail
+                    </p>
+                </a>
+            </li>-->
+            <li class="nav-item">
+                <a th:href="@{/klaim/add}" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                        Klaim
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/klaim}" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                        Detail Klaim
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/approval}" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                       List Approval
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/password/forgot}" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                       Password Forgot
+                    </p>
+                </a>
+            </li>
+
+
+<!--            <li class="nav-item">
+                <a th:href="@{/schedule}" class="nav-link">
+                    <i class="nav-icon fas fa-calendar"></i>
+                    <p>
+                        Schedule
+                    </p>
+                </a>
+            </li>				 -->
+            <li class="nav-item">
+                <a href="/logout" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>
+                        Logout
+                    </p>
+                </a>
+            </li>
+
+    </nav>
+</div>
+</aside>

@@ -1,16 +1,100 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Approval Status</title>
+
+<head th:insert="fragment/head.html :: head">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <!-- comment -->
+    <div class="wrapper">
+        <nav th:insert="fragment/nav.html :: nav" class="navbar"></nav>
+        <aside th:insert="fragment/aside.html :: aside"></aside>
+
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">
+                                <b>Application Status</b><small></small>
+                            </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <span class="pull-right">
+                                            <button class="btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#addApprovalStatus"><span class="fa fa-plus-circle"></span>Add Action</button>
+
+                                </span>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover js-basic-example display" id="example">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" hidden>ID</th>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Nama Approval Status</th>
+                                        <th scope="col" hidden>Status Approval</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="approvalStatus, status : ${approvalStatus}">
+                                        <td hidden 
+                                        th:id="'idApprovalStatusText'+${approvalStatus.idApprovalStatus}" 
+                                        th:text="${approvalStatus.idApprovalStatus}">                                            
+                                        </td>
+                                        
+                                        <td th:text="${status.index+1}"></td>
+                                        
+                                        <td 
+                                        th:id="'namaApprovalStatusText'+${approvalStatus.idApprovalStatus}" 
+                                        th:text="${approvalStatus.namaApprovalStatus}">                                            
+                                        </td>
+                                        
+                                        <td hidden
+                                        th:id="'namaStatusText'+${approvalStatus.idApprovalStatus}" 
+                                        th:text="${approvalStatus.approvalStatus}">                                           
+                                        </td>
+                                        <td>
+
+                                            <button type="button" class="edit_record btn btn-info btn-sm" th:onclick="|editApprovalStatus(${approvalStatus.idApprovalStatus})|"><span class="fas fa-edit"></span> Edit</button>
+                                            <button type="button" class="remove_record btn btn-danger btn-sm" th:onclick="|removeApprovalStatus(${approvalStatus.idApprovalStatus})|"><span class="fas fa-trash"></span> Remove</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <form th:insert="approvalStatus/v_page_add.html :: form" id="add-row-form" th:action="@{/approvalStatus/add}" th:object="${addApprovalStatus}" method="POST"></form>
+
+        <form th:insert="approvalStatus/v_page_edit.html :: form" id="edit-row-form" th:action="@{/approvalStatus/edit}" th:object="${editApprovalStatus}" method="POST"></form>
+
+        <form th:insert="approvalStatus/v_page_remove.html :: form" id="remove-row-form" th:action="@{/approvalStatus/edit}" th:object="${removeApprovalStatus}" method="POST"></form>
+        
+        <footer th:insert="fragment/footer.html :: footer"></footer>
+    </div>
+
+    <div th:insert="fragment/foot.html :: foot"></div>
+    <script src="js/helper/approvalStatus.js"></script>
+    
+</body>
+
 </html>

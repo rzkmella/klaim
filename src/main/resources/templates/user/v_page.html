@@ -1,16 +1,304 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns:th="http://www.thymeleaf.org">
+    <title>User</title>
+
+    <head th:insert="fragment/head.html :: head">
     </head>
-    <body>
-        <div>TODO write content</div>
+
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+        <div class="wrapper">
+            <nav th:insert="fragment/nav.html :: nav" class="navbar"></nav>
+            <aside th:insert="fragment/aside.html :: aside"></aside>
+
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">
+                                    <b>User</b><small></small>
+                                </h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <span class="pull-right">
+                                        <button class="btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#addUser"><span class="fa fa-plus-circle"></span>Add Action</button>
+
+                                    </span>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example display" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" hidden>ID User</th>
+                                            <th scope="col" hidden>ID Role</th>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Nama Lengkap</th>
+                                            <th scope="col">E-mail</th>
+                                            <th scope="col">Password</th>
+                                            <th scope="col">No. Rekening</th>
+                                            <th scope="col" hidden>Status User</th>                                            
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="user, status : ${user}">
+                                            <td hidden
+                                                th:id="'idUserText'+${user.idUser}" 
+                                                th:text="${user.idUser}">                                            
+                                            </td>
+                                            <td hidden
+                                                th:id="'idRoleText'+${user.idUser}" 
+                                                th:text="${user.idRole.idRole}">                                            
+                                            </td>
+                                            <td th:text="${status.index+1}"></td>
+
+                                            <td 
+                                                th:id="'namaRoleText'+${user.idUser}" 
+                                                th:text="${user.idRole.namaRole}">                                            
+                                            </td>
+
+                                            <td 
+                                                th:id="'namaLengkapUserText'+${user.idUser}" 
+                                                th:text="${user.namaLengkapUser}">                                            
+                                            </td>
+
+                                            <td 
+                                                th:id="'emailUserText'+${user.idUser}" 
+                                                th:text="${user.emailUser}">                                            
+                                            </td>
+
+                                            <td 
+                                                th:id="'passwordUserText'+${user.idUser}" 
+                                                th:text="${user.passwordUser}">                                            
+                                            </td>
+
+                                            <td 
+                                                th:id="'noRekeningUserText'+${user.idUser}" 
+                                                th:text="${user.noRekeningUser}">                                            
+                                            </td>
+
+                                            <td hidden 
+                                                th:id="'statusUserText'+${user.idUser}" 
+                                                th:text="${user.statusUser}">                                            
+                                            </td>
+
+
+                                            <td>
+
+                                                <button type="button" class="edit_record btn btn-info btn-sm" th:onclick="|editUser(${user.idUser})|"><span class="fas fa-edit"></span> Edit</button>
+                                                <button type="button" class="remove_record btn btn-danger btn-sm" th:onclick="|removeUser(${user.idUser})|"><span class="fas fa-trash"></span> Remove</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!--FORM ADD-->
+            <form id="add-row-form" th:action="@{/user/add}" th:object="${addUser}" method="POST">
+
+                <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4 class="modal-title"><span class="fa fa-plus-circle"></span>Add User</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Nama Role<span class="redColor">*</span></label>
+                                    <select th:field="*{idRole}" class="form-control" required>
+                                        <option hidden value="">Pilih</option>
+                                        <option 
+                                            th:each="role : ${role}"                                
+                                            th:value="${role.idRole}" 
+                                            th:text="${role.namaRole}">
+                                        </option>
+                                    </select>
+                                    </br>
+                                    <label>Nama Lengkap User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{namaLengkapUser}" class="form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>E-mail<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{emailUser}" class="form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>Password User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{passwordUser}" class="form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>No. Rekening User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{noRekeningUser}" class="form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+<!--                                    <label>Status User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{statusUser}" class="form-control" placeholder="" required>
+                                    </div>                                -->
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="add-row" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--            END FORM ADD-->
+
+            <!--            FORM EDIT-->
+            <form id="edit-row-form" th:action="@{/user/edit}" th:object="${editUser}" method="POST">
+                <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4 class="modal-title"><span class="fa fa-plus-circle"></span> Edit User</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Nama Role<span class="redColor">*</span></label>
+                                    <select th:field="*{idRole}" class="idRoleEdit form-control" required>
+                                        <option hidden value="">Pilih</option>
+                                        <option                                             
+                                            th:each="role : ${role}"                                
+                                            th:value="${role.idRole}" 
+                                            th:text="${role.namaRole}">
+                                        </option>
+                                    </select>
+                                    </br>
+                                    <label>Nama Lengkap User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{namaLengkapUser}" class="namaLengkapUserEdit form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>E-mail<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{emailUser}" class="emailUserEdit form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>Password User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{passwordUser}" class="passwordUserEdit form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>No. Rekening User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{noRekeningUser}" class="noRekeningUserEdit form-control" placeholder="" required>
+                                    </div>
+                                    </br>
+                                    <label>Status User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{statusUser}" class="statusUserEdit form-control" placeholder="" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="add-row" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--END FORM EDIT-->
+
+            <!-- FORM REMOVE-->
+            <form id="edit-row-form" th:action="@{/user/edit}" th:object="${removeUser}" method="POST">
+                <div class="modal fade" id="removeUser" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4 class="modal-title"><span class="fa fa-plus-circle"></span> Remove User</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Id User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{idUser}" class="idUserRemove form-control" placeholder="" disabled>
+                                    </div>
+<!--LIST ROLE BELUM MAU TAMPIL-->
+                                    <label>Nama Role<span class="redColor">*</span></label> 
+<!--                                    <input type="text" th:field="*{idRole.namaRole}" class="idRoleRemove form-control" placeholder="" disabled>-->
+                                    <select th:field="*{idRole.namaRole}" class="idRoleRemove form-control" disabled>
+                                        <option hidden value="">Pilih</option>
+                                        <option 
+                                                th:each="role : ${role}"                                
+                                                th:value="${role.idRole}" 
+                                                th:text="${role.namaRole}">
+                                        </option>
+                                    </select>
+                                    </br>
+                                    <label>Nama Lengkap User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{namaLengkapUser}" class="namaLengkapUserRemove form-control" placeholder="" disabled>
+                                    </div>
+                                    </br>
+                                    <label>E-mail<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{emailUser}" class="emailUserRemove form-control" placeholder="" disabled>
+                                    </div>
+                                    </br>
+                                    <label>Password User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{passwordUser}" class="passwordUserRemove form-control" placeholder="" disabled>
+                                    </div>
+                                    </br>
+                                    <label>No. Rekening User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{noRekeningUser}" class="noRekeningUserRemove form-control" placeholder="" disabled>
+                                    </div>
+                                    </br>
+                                    <label>Status User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{statusUser}" class="statusUserRemove form-control" placeholder="" disabled>
+                                    </div>
+                                </div>
+                                <strong>Are you sure to remove <b>User</b> <u><span class="namaLengkapUserRemoveText"></span></u> ?</strong>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="add-row" class="btn btn-success">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>      
+            <footer th:insert="fragment/footer.html :: footer"></footer>
+        </div>
+
+        <div th:insert="fragment/foot.html :: foot"></div>
+        <script src="js/helper/user.js"></script>
+        <!--        <script src="js/helper/provinsi.js"></script>-->
+
     </body>
+
 </html>

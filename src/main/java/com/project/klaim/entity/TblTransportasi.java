@@ -33,8 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblTransportasi.findAll", query = "SELECT t FROM TblTransportasi t"),
     @NamedQuery(name = "TblTransportasi.findByIdTransportasi", query = "SELECT t FROM TblTransportasi t WHERE t.idTransportasi = :idTransportasi"),
     @NamedQuery(name = "TblTransportasi.findByNamaTransportasi", query = "SELECT t FROM TblTransportasi t WHERE t.namaTransportasi = :namaTransportasi"),
-    @NamedQuery(name = "TblTransportasi.findByBiayaTransportasi", query = "SELECT t FROM TblTransportasi t WHERE t.biayaTransportasi = :biayaTransportasi")})
+    @NamedQuery(name = "TblTransportasi.findByStatusTransportasi", query = "SELECT t FROM TblTransportasi t WHERE t.statusTransportasi = :statusTransportasi")})
 public class TblTransportasi implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTransportasi", fetch = FetchType.LAZY)
+    private List<TblTrTransportasiKlaim> tblTrTransportasiKlaimList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,10 +49,8 @@ public class TblTransportasi implements Serializable {
     @Column(name = "nama_transportasi")
     private String namaTransportasi;
     @Basic(optional = false)
-    @Column(name = "biaya_transportasi")
-    private int biayaTransportasi;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTransportasi", fetch = FetchType.LAZY)
-    private List<TblKlaim> tblKlaimList;
+    @Column(name = "status_transportasi")
+    private boolean statusTransportasi;
 
     public TblTransportasi() {
     }
@@ -58,10 +59,10 @@ public class TblTransportasi implements Serializable {
         this.idTransportasi = idTransportasi;
     }
 
-    public TblTransportasi(Integer idTransportasi, String namaTransportasi, int biayaTransportasi) {
+    public TblTransportasi(Integer idTransportasi, String namaTransportasi, boolean statusTransportasi) {
         this.idTransportasi = idTransportasi;
         this.namaTransportasi = namaTransportasi;
-        this.biayaTransportasi = biayaTransportasi;
+        this.statusTransportasi = statusTransportasi;
     }
 
     public Integer getIdTransportasi() {
@@ -80,21 +81,12 @@ public class TblTransportasi implements Serializable {
         this.namaTransportasi = namaTransportasi;
     }
 
-    public int getBiayaTransportasi() {
-        return biayaTransportasi;
+    public boolean getStatusTransportasi() {
+        return statusTransportasi;
     }
 
-    public void setBiayaTransportasi(int biayaTransportasi) {
-        this.biayaTransportasi = biayaTransportasi;
-    }
-
-    @XmlTransient
-    public List<TblKlaim> getTblKlaimList() {
-        return tblKlaimList;
-    }
-
-    public void setTblKlaimList(List<TblKlaim> tblKlaimList) {
-        this.tblKlaimList = tblKlaimList;
+    public void setStatusTransportasi(boolean statusTransportasi) {
+        this.statusTransportasi = statusTransportasi;
     }
 
     @Override
@@ -120,6 +112,15 @@ public class TblTransportasi implements Serializable {
     @Override
     public String toString() {
         return "com.project.klaim.entity.TblTransportasi[ idTransportasi=" + idTransportasi + " ]";
+    }
+
+    @XmlTransient
+    public List<TblTrTransportasiKlaim> getTblTrTransportasiKlaimList() {
+        return tblTrTransportasiKlaimList;
+    }
+
+    public void setTblTrTransportasiKlaimList(List<TblTrTransportasiKlaim> tblTrTransportasiKlaimList) {
+        this.tblTrTransportasiKlaimList = tblTrTransportasiKlaimList;
     }
     
 }

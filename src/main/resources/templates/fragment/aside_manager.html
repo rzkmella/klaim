@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+</a>
+
+<div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+
+        </div>
+    </div>
+
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a href="app/dashboard" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Dashboard
+                    </p>
+                </a>
+            </li>            
+            <li class="nav-item">
+                <a th:href="@{/approval}" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>
+                       List Approval
+                    </p>
+                </a>
+            </li>
+
+
+<!--            <li class="nav-item">
+                <a th:href="@{/schedule}" class="nav-link">
+                    <i class="nav-icon fas fa-calendar"></i>
+                    <p>
+                        Schedule
+                    </p>
+                </a>
+            </li>				 -->
+            <li class="nav-item">
+                <a href="/logout" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>
+                        Logout
+                    </p>
+                </a>
+            </li>
+
+    </nav>
+</div>
+</aside>

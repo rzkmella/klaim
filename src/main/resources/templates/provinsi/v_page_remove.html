@@ -1,0 +1,34 @@
+<form th:fragment="form">
+    <div class="modal fade" id="removeProvinsi" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="fa fa-trash"></span> Remove Role</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Id Provinsi<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="idProvinsi" class="idProvinsiRemove form-control" placeholder="" required>
+                    </div>
+                    <label>Nama Provinsi<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="namaProvinsi" class="namaProvinsiRemove form-control" placeholder="" required>
+                    </div>
+<!--                    <label>Status Role<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="statusRole" class="statusRoleRemove form-control" placeholder="" required>
+                    </div>-->
+
+                    <strong>Are you sure to remove <b>Provinsi</b> <u><span class="namaProvinsiRemoveText"></span></u> ?</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="remove-row" name="Remove" class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,51 +1,132 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>WELCOME EMPLOYEEt</div>
-        <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                  </div>
-                </div>
-                <!-- /.card-body -->
+<html xmlns:th="http://www.thymeleaf.org">
+    <title>History Klaim</title>
 
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+    <head th:insert="fragment/head.html :: head">
+    </head>
+
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+        <div class="wrapper">
+            <nav th:insert="fragment/nav.html :: nav" class="navbar"></nav>
+            <aside th:insert="fragment/aside_employee.html :: aside"></aside>
+
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">
+                                    <b>History Klaim</b><small></small>
+                                </h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </form>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example display" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" hidden>ID Klaim</th>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Tgl Klaim</th>
+                                            <th scope="col">Tgl Mulai Dinas</th>                                            
+                                            <th scope="col">Tgl Akhir Dinas</th>                                            
+<!--                                            <th scope="col">Daerah Dinas</th>                                            -->
+                                            <th scope="col">Kegiatan Dinas Dinas</th>                                            
+                                            <th scope="col">Nama Hotel</th>                                            
+                                            <th scope="col">Biaya Hotel</th>                                            
+                                            <th scope="col">Biaya Konsumsi</th>                                            
+                                            <th scope="col">Total Transportasi</th>                                            
+                                            <th scope="col">Total Klaim</th>                                            
+<!--                                            <th scope="col">Nota Hotel</th>                                            
+                                            <th scope="col">Nota Konsumsi</th>                                            
+                                            <th scope="col">Nota Transportasi</th>                                            
+                                            <th scope="col">Action</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="klaim, status : ${klaim}">
+                                            <td hidden                                              
+                                                th:text="${klaim.idKlaim}">                                            
+                                            </td>
+                                            <td th:text="${status.index+1}"></td>
+
+                                            <td                                                 
+                                                th:text="${klaim.tglKlaim}">                                            
+                                            </td>
+
+                                            <td                                                
+                                                th:text="${klaim.tglMulaiDinasKlaim}">
+                                            </td>
+                                            
+                                            <td                                                
+                                                th:text="${klaim.tglAkhirDinasKlaim}">
+                                            </td>
+<!--                                            <td                                                
+                                                th:text="${klaim.idKota.namaKota.idProvinsi.namaProvinsi}">
+                                            </td>-->
+                                            <td                                                
+                                                th:text="${klaim.kegiatanDinasKlaim}">
+                                            </td>
+                                            <td                                                
+                                                th:text="${klaim.hotelKlaim}">
+                                            </td>
+                                            <td                                                
+                                                th:text="${klaim.biayaHotelKlaim}">
+                                            </td>
+                                            <td                                                
+                                                th:text="${klaim.biayaKonsumsiKlaim}">
+                                            </td>
+                                            <td                                                
+                                                th:text="${klaim.totalTransportasi}">
+                                            </td>
+                                            <td                                                
+                                                th:text="${klaim.totalKlaim}">
+                                            </td>
+                                            
+<!--                                            <td>
+
+                                                <button type="button" class="edit_record btn btn-info btn-sm" th:onclick="|editKota(${kota.idKota})|"><span class="fas fa-edit"></span> Edit</button>
+                                                <button type="button" class="remove_record btn btn-danger btn-sm" th:onclick="|removeKota(${kota.idKota})|"><span class="fas fa-trash"></span> Remove</button>
+                                            </td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <!-- /.card -->
+<!--FORM ADD-->
+            
+<!--END FORM ADD-->
+
+<!--FORM EDIT-->
+            
+<!--END FORM EDIT-->
+
+            <!--<form th:insert="transportasi/v_page_remove.html :: form" id="remove-row-form" th:action="@{/transportasi/edit}" th:object="${removeTransportasi}" method="POST"></form>-->
+
+            <footer th:insert="fragment/footer.html :: footer"></footer>
+        </div>
+
+        <div th:insert="fragment/foot.html :: foot"></div>
+<!--        <script src="js/helper/kota.js"></script>-->
+        <!--        <script src="js/helper/provinsi.js"></script>-->
+
     </body>
+
 </html>

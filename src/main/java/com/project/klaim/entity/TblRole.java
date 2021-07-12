@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblRole.findByStatusRole", query = "SELECT t FROM TblRole t WHERE t.statusRole = :statusRole")})
 public class TblRole implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRole", fetch = FetchType.LAZY)
+    private List<TblUser> tblUserList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +51,6 @@ public class TblRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "status_role")
     private boolean statusRole;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRole", fetch = FetchType.LAZY)
-    private List<TblUser> tblUserList;
 
     public TblRole() {
     }
@@ -88,15 +89,6 @@ public class TblRole implements Serializable {
         this.statusRole = statusRole;
     }
 
-    @XmlTransient
-    public List<TblUser> getTblUserList() {
-        return tblUserList;
-    }
-
-    public void setTblUserList(List<TblUser> tblUserList) {
-        this.tblUserList = tblUserList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -120,6 +112,15 @@ public class TblRole implements Serializable {
     @Override
     public String toString() {
         return "com.project.klaim.entity.TblRole[ idRole=" + idRole + " ]";
+    }
+
+    @XmlTransient
+    public List<TblUser> getTblUserList() {
+        return tblUserList;
+    }
+
+    public void setTblUserList(List<TblUser> tblUserList) {
+        this.tblUserList = tblUserList;
     }
     
 }

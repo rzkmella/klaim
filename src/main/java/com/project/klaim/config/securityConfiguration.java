@@ -5,6 +5,7 @@
  */
 package com.project.klaim.config;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  *
@@ -26,9 +28,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalAuthentication
 public class securityConfiguration extends WebSecurityConfigurerAdapter {
+    
 
     @Autowired
     UserDetailsService userDetailsService;
+    
+//    @Autowired
+//    SecurityCustomSuccessHandler customSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,14 +44,35 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
     @Override //mengatur map kemana
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("approval/").hasRole("admin")
-                .antMatchers("role/").hasRole("admin")
-                .antMatchers("klaim/").hasRole("employee")
+                
+                .antMatchers("/role").hasRole("admin")
+                .antMatchers("/approvalStatus").hasRole("admin")
+                .antMatchers("/transportasi").hasRole("admin")
+                .antMatchers("/provinsi").hasRole("admin")
+                .antMatchers("/user").hasRole("admin")
+                .antMatchers("/kota").hasRole("admin")
+                .antMatchers("/TrTransportasiKlaim").hasRole("employee")               
+                .antMatchers("/klaim").hasRole("employee")                
+                .antMatchers("/approval").hasRole("manager")
                 .antMatchers("/").permitAll()
                 .antMatchers("/password/forgot").permitAll()
                 .antMatchers("/password/forgot/request").permitAll()
                 .and()
                 .formLogin()
+//                .successHandler(customSuccessHandler)
+//                .usernameParameter("email")
+//                .passwordParameter("password")
+//                .failureUrl("/index")
+//                .permitAll()
+//                .and().csrf()
+//                .and()
+//                .exceptionHandling()
+//                .accessDeniedPage("/accsess_denied")
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .addLogoutHandler(new SecurityLogout())
+//                .logoutSuccessUrl("/login");
 //                .loginPage("/loginpage")
 //                .successHandler(csh)
 //                .usernameParameter("email").passwordParameter("password")

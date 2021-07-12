@@ -6,21 +6,16 @@
 package com.project.klaim.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,8 +39,6 @@ public class TblProvinsi implements Serializable {
     @Basic(optional = false)
     @Column(name = "nama_provinsi")
     private String namaProvinsi;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProvinsi", fetch = FetchType.LAZY)
-    private List<TblKota> tblKotaList;
 
     public TblProvinsi() {
     }
@@ -73,15 +66,6 @@ public class TblProvinsi implements Serializable {
 
     public void setNamaProvinsi(String namaProvinsi) {
         this.namaProvinsi = namaProvinsi;
-    }
-
-    @XmlTransient
-    public List<TblKota> getTblKotaList() {
-        return tblKotaList;
-    }
-
-    public void setTblKotaList(List<TblKota> tblKotaList) {
-        this.tblKotaList = tblKotaList;
     }
 
     @Override

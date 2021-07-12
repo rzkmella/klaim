@@ -1,0 +1,34 @@
+<form th:fragment="form">
+    <div class="modal fade" id="removeApprovalStatus" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span class="fa fa-trash"></span> Remove Approval Status</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Id ApplicationStatus<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="idApprovalStatus" class="idApprovalStatusRemove form-control" placeholder="" required>
+                    </div>
+                    <label>Nama ApplicationStatus<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="namaApprovalStatus" class="namaApprovalStatusRemove form-control" placeholder="" required>
+                    </div>
+                    <label>Status ApplicationStatus<span class="redColor">*</span></label>
+                    <div class="form-line">
+                        <input type="text" name="approvalStatus" class="approvalStatusRemove form-control" placeholder="" required>
+                    </div>
+
+                    <strong>Are you sure to remove <b>Approval Status</b> <u><span class="namaApprovalStatusRemoveText"></span></u> ?</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="remove-row" name="Remove" class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

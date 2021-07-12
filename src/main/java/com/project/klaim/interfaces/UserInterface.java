@@ -12,6 +12,8 @@ import com.project.klaim.entity.TblUser;
  * @author MELLA
  */
 public interface UserInterface {
+    void save(TblUser user);
+    Iterable<TblUser> getUserActive();  
     TblUser getEmail(String emailUser);
     TblUser getPassword(String passwordUser);
     

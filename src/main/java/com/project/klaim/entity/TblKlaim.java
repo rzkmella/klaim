@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -45,6 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblKlaim.findByHotelKlaim", query = "SELECT t FROM TblKlaim t WHERE t.hotelKlaim = :hotelKlaim"),
     @NamedQuery(name = "TblKlaim.findByBiayaHotelKlaim", query = "SELECT t FROM TblKlaim t WHERE t.biayaHotelKlaim = :biayaHotelKlaim"),
     @NamedQuery(name = "TblKlaim.findByBiayaKonsumsiKlaim", query = "SELECT t FROM TblKlaim t WHERE t.biayaKonsumsiKlaim = :biayaKonsumsiKlaim"),
+    @NamedQuery(name = "TblKlaim.findByTotalTransportasi", query = "SELECT t FROM TblKlaim t WHERE t.totalTransportasi = :totalTransportasi"),
     @NamedQuery(name = "TblKlaim.findByTotalKlaim", query = "SELECT t FROM TblKlaim t WHERE t.totalKlaim = :totalKlaim")})
 public class TblKlaim implements Serializable {
 
@@ -79,6 +81,9 @@ public class TblKlaim implements Serializable {
     @Column(name = "biaya_konsumsi_klaim")
     private int biayaKonsumsiKlaim;
     @Basic(optional = false)
+    @Column(name = "total_transportasi")
+    private int totalTransportasi;
+    @Basic(optional = false)
     @Column(name = "total_klaim")
     private int totalKlaim;
     @Basic(optional = false)
@@ -93,17 +98,14 @@ public class TblKlaim implements Serializable {
     @Lob
     @Column(name = "nota_konsumsi_klaim")
     private byte[] notaKonsumsiKlaim;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKlaim", fetch = FetchType.LAZY)
-    private List<TblApproval> tblApprovalList;
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TblUser idUser;
-    @JoinColumn(name = "id_transportasi", referencedColumnName = "id_transportasi")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TblTransportasi idTransportasi;
     @JoinColumn(name = "id_kota", referencedColumnName = "id_kota")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TblKota idKota;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKlaim", fetch = FetchType.LAZY)
+    private List<TblTrTransportasiKlaim> tblTrTransportasiKlaimList;
 
     public TblKlaim() {
     }
@@ -112,7 +114,7 @@ public class TblKlaim implements Serializable {
         this.idKlaim = idKlaim;
     }
 
-    public TblKlaim(Integer idKlaim, Date tglKlaim, Date tglMulaiDinasKlaim, Date tglAkhirDinasKlaim, String kegiatanDinasKlaim, String hotelKlaim, int biayaHotelKlaim, int biayaKonsumsiKlaim, int totalKlaim, byte[] notaHotelKlaim, byte[] notaTransportasiKlaim, byte[] notaKonsumsiKlaim) {
+    public TblKlaim(Integer idKlaim, Date tglKlaim, Date tglMulaiDinasKlaim, Date tglAkhirDinasKlaim, String kegiatanDinasKlaim, String hotelKlaim, int biayaHotelKlaim, int biayaKonsumsiKlaim, int totalTransportasi, int totalKlaim, byte[] notaHotelKlaim, byte[] notaTransportasiKlaim, byte[] notaKonsumsiKlaim) {
         this.idKlaim = idKlaim;
         this.tglKlaim = tglKlaim;
         this.tglMulaiDinasKlaim = tglMulaiDinasKlaim;
@@ -121,11 +123,64 @@ public class TblKlaim implements Serializable {
         this.hotelKlaim = hotelKlaim;
         this.biayaHotelKlaim = biayaHotelKlaim;
         this.biayaKonsumsiKlaim = biayaKonsumsiKlaim;
+        this.totalTransportasi = totalTransportasi;
         this.totalKlaim = totalKlaim;
         this.notaHotelKlaim = notaHotelKlaim;
         this.notaTransportasiKlaim = notaTransportasiKlaim;
         this.notaKonsumsiKlaim = notaKonsumsiKlaim;
     }
+
+    public TblKlaim(Integer idKlaim, Date tglKlaim, Date tglMulaiDinasKlaim, Date tglAkhirDinasKlaim, String kegiatanDinasKlaim, String hotelKlaim, Integer biayaHotelKlaim, Integer biayaKonsumsiKlaim, Integer totalTransportasi, Integer totalKlaim, byte[] notaHotelKlaim, byte[] notaTransportasiKlaim, byte[] notaKonsumsiKlaim, Object idUserObject, Object idKotaObject) {
+        this.idKlaim = idKlaim;
+        this.tglKlaim = tglKlaim;
+        this.tglMulaiDinasKlaim = tglMulaiDinasKlaim;
+        this.tglAkhirDinasKlaim = tglAkhirDinasKlaim;
+        this.kegiatanDinasKlaim = kegiatanDinasKlaim;
+        this.hotelKlaim = hotelKlaim;
+        this.biayaHotelKlaim = biayaHotelKlaim;
+        this.biayaKonsumsiKlaim = biayaKonsumsiKlaim;
+        this.totalTransportasi = totalTransportasi;
+        this.totalKlaim = totalKlaim;
+        this.notaHotelKlaim = notaHotelKlaim;
+        this.notaTransportasiKlaim = notaTransportasiKlaim;
+        this.notaKonsumsiKlaim = notaKonsumsiKlaim;
+        this.idUser = (TblUser) idUser;
+        this.idKota = (TblKota) idKota;
+    }
+
+   
+
+//    public TblKlaim(Integer idKlaim, Date tglKlaim, Date tglMulaiDinasKlaim, Date tglAkhirDinasKlaim, String kegiatanDinasKlaim, String hotelKlaim, Integer biayaHotelKlaim, Integer biayaKonsumsiKlaim, Integer totalTransportasi, Integer totalKlaim, MultipartFile notaHotelKlaim, MultipartFile notaTransportasiKlaim, MultipartFile notaKonsumsiKlaim, Object idUserObject, Object idKotaObject) {
+//        his.idKlaim = idKlaim;
+//        this.tglKlaim = tglKlaim;
+//        this.tglMulaiDinasKlaim = tglMulaiDinasKlaim;
+//        this.tglAkhirDinasKlaim = tglAkhirDinasKlaim;
+//        this.kegiatanDinasKlaim = kegiatanDinasKlaim;
+//        this.hotelKlaim = hotelKlaim;
+//        this.biayaHotelKlaim = biayaHotelKlaim;
+//        this.biayaKonsumsiKlaim = biayaKonsumsiKlaim;
+//        this.totalTransportasi = totalTransportasi;
+//        this.totalKlaim = totalKlaim;
+//        this.notaHotelKlaim = notaHotelKlaim;
+//        this.notaTransportasiKlaim = notaTransportasiKlaim;
+//        this.notaKonsumsiKlaim = notaKonsumsiKlaim;
+//        this.idUser = (TblUser) idUser;
+//        this.idKota = (TblKota) idKota;this.idKlaim = idKlaim;
+//        this.tglKlaim = tglKlaim;
+//        this.tglMulaiDinasKlaim = tglMulaiDinasKlaim;
+//        this.tglAkhirDinasKlaim = tglAkhirDinasKlaim;
+//        this.kegiatanDinasKlaim = kegiatanDinasKlaim;
+//        this.hotelKlaim = hotelKlaim;
+//        this.biayaHotelKlaim = biayaHotelKlaim;
+//        this.biayaKonsumsiKlaim = biayaKonsumsiKlaim;
+//        this.totalTransportasi = totalTransportasi;
+//        this.totalKlaim = totalKlaim;
+//        this.notaHotelKlaim = notaHotelKlaim;
+//        this.notaTransportasiKlaim = notaTransportasiKlaim;
+//        this.notaKonsumsiKlaim = notaKonsumsiKlaim;
+//        this.idUser = (TblUser) idUser;
+//        this.idKota = (TblKota) idKota;
+//    }
 
     public Integer getIdKlaim() {
         return idKlaim;
@@ -191,6 +246,14 @@ public class TblKlaim implements Serializable {
         this.biayaKonsumsiKlaim = biayaKonsumsiKlaim;
     }
 
+    public int getTotalTransportasi() {
+        return totalTransportasi;
+    }
+
+    public void setTotalTransportasi(int totalTransportasi) {
+        this.totalTransportasi = totalTransportasi;
+    }
+
     public int getTotalKlaim() {
         return totalKlaim;
     }
@@ -223,15 +286,6 @@ public class TblKlaim implements Serializable {
         this.notaKonsumsiKlaim = notaKonsumsiKlaim;
     }
 
-    @XmlTransient
-    public List<TblApproval> getTblApprovalList() {
-        return tblApprovalList;
-    }
-
-    public void setTblApprovalList(List<TblApproval> tblApprovalList) {
-        this.tblApprovalList = tblApprovalList;
-    }
-
     public TblUser getIdUser() {
         return idUser;
     }
@@ -240,20 +294,21 @@ public class TblKlaim implements Serializable {
         this.idUser = idUser;
     }
 
-    public TblTransportasi getIdTransportasi() {
-        return idTransportasi;
-    }
-
-    public void setIdTransportasi(TblTransportasi idTransportasi) {
-        this.idTransportasi = idTransportasi;
-    }
-
     public TblKota getIdKota() {
         return idKota;
     }
 
     public void setIdKota(TblKota idKota) {
         this.idKota = idKota;
+    }
+
+    @XmlTransient
+    public List<TblTrTransportasiKlaim> getTblTrTransportasiKlaimList() {
+        return tblTrTransportasiKlaimList;
+    }
+
+    public void setTblTrTransportasiKlaimList(List<TblTrTransportasiKlaim> tblTrTransportasiKlaimList) {
+        this.tblTrTransportasiKlaimList = tblTrTransportasiKlaimList;
     }
 
     @Override

@@ -1,0 +1,60 @@
+<form th:fragment="form">
+    <div class="modal fade" id="removeUser" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title"><span class="fa fa-plus-circle"></span> Remove User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Id User<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" th:field="*{idUser}" class="idUserRemove form-control" placeholder="" disabled>
+                        </div>
+                        <label>Nama Role<span class="redColor">*</span></label>
+                        <select th:field="*{idRole}" class="idRoleRemove form-control" disabled>
+                            <option value="">Pilih</option>
+                            <option 
+                                th:each="role : ${role}"                                
+                                th:value="${role.idRole}" 
+                                th:text="${role.namaRole}">
+                            </option>
+                        </select>
+                        </br>
+                        <label>Nama Lengkap User<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" th:field="*{namaLengkapUser}" class="namaLengkapUserRemove form-control" placeholder="" disabled>
+                        </div>
+                        </br>
+                        <label>E-mail<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" th:field="*{emailUser}" class="emailUserRemove form-control" placeholder="" disabled>
+                        </div>
+                        </br>
+                        <label>Password User<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" th:field="*{passwordUser}" class="passwordUserRemove form-control" placeholder="" disabled>
+                        </div>
+                        </br>
+                        <label>No. Rekening User<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" th:field="*{noRekeningUser}" class="noRekeningUserRemove form-control" placeholder="" disabled>
+                        </div>
+                        </br>
+                        <label>Status User<span class="redColor">*</span></label>
+                        <div class="form-line">
+                            <input type="text" th:field="*{statusUser}" class="statusUserRemove form-control" placeholder="" disabled>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="add-row" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

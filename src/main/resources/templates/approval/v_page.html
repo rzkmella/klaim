@@ -1,16 +1,179 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns:th="http://www.thymeleaf.org">
+    <title>Approval</title>
+
+    <head th:insert="fragment/head.html :: head">
     </head>
-    <body>
-        <div>WELCOME MANAGERt</div>
+
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+        <div class="wrapper">
+            <nav th:insert="fragment/nav.html :: nav" class="navbar"></nav>
+            <aside th:insert="fragment/aside_manager.html :: aside"></aside>
+
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">
+                                    <b>Approval</b><small></small>
+                                </h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <span class="pull-right">
+                                    </span>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example display" id="example">
+
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" hidden>ID Approval</th>
+                                            <th scope="col" hidden>ID Klaim</th>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Tgl Mulai Dinas</th>
+                                            <th scope="col">Tgl Akhir Dinas</th>
+                                            <th scope="col">Nama Requester</th>
+                                            <th scope="col">Kegiatan Dinas</th>
+                                            <th scope="col">Biaya Hotel</th>
+                                            <th scope="col">Biaya Konsumsi</th>                                            
+                                            <th scope="col">Total Biaya Klaim</th>
+                                            <th scope="col" hidden>ID Approval Status</th>                                            
+                                            <th scope="col">Approval Status</th>                                            
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="approval, status : ${approval}">
+                                            <td hidden                                                
+                                                th:text="${approval.idApproval}">                                            
+                                            </td>
+
+                                            <td hidden                                                
+                                                th:text="${approval.idKlaim.idKlaim}">                                            
+                                            </td>
+
+                                            <td th:text="${status.index+1}"></td>                                           
+
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.tglMulaiDinasKlaim}">                                            
+                                            </td>
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.tglAkhirDinasKlaim}">                                            
+                                            </td>
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.idUser.namaLengkapUser}">                                            
+                                            </td>
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.kegiatanDinasKlaim}">                                            
+                                            </td>
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.biayaHotelKlaim}">                                            
+                                            </td>
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.biayaKonsumsiKlaim}">                                            
+                                            </td>
+                                            <td                                                 
+                                                th:text="${approval.idKlaim.totalKlaim}">                                            
+                                            </td>
+
+                                            <td hidden
+                                                th:text="${approval.idApprovalStatus.idApprovalStatus}">
+                                            </td>
+
+                                            <td 
+                                                th:text="${approval.idApprovalStatus.namaApprovalStatus}">
+                                            </td>
+                                            <td>
+                                                <button type="button" class="edit_record btn btn-info btn-sm" th:onclick="|editApproval(${approval.idApproval})|"><span class="fas fa-edit"></span> Edit</button>
+                                               
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!--FORM ADD-->
+
+            <!--END FORM ADD-->
+
+            <!--FORM EDIT-->
+            <form id="edit-row-form" th:action="@{/approval/edit}" th:object="${editApproval}" method="POST">
+                <div class="modal fade" id="editApproval" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4 class="modal-title"><span class="fa fa-plus-circle"></span> Edit Approval</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label hidden>Id Approval<span class="redColor">*</span></label>
+                                    <div class="form-line" hidden>                        
+                                        <input type="text" th:field="*{idApproval}" class="idApprovalEdit form-control" placeholder="" required>
+                                    </div>
+
+                                    <label>Id Klaim<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{idKlaim}" class="idKlaimEdit form-control" placeholder="" required>
+                                    </div>
+
+                                    <label>id Approval Status<span class="redColor">*</span></label>
+                                    <select th:field="*{idApprovalStatus}" class="idApprovalStatusEdit form-control" required>
+                                        <option value="">Pilih</option>
+                                        <option 
+                                            th:each="approvalStatus : ${approvalStatus}"                                
+                                            th:value="${approvalStatus.idApprovalStatus}" 
+                                            th:text="${approvalStatus.namaApprovalStatus}">
+                                        </option>
+                                    </select>
+                                    
+                                    <label>Id User<span class="redColor">*</span></label>
+                                    <div class="form-line">
+                                        <input type="text" th:field="*{idUser}" class="idUserEdit form-control" placeholder="" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="add-row" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--END FORM EDIT-->
+
+            <footer th:insert="fragment/footer.html :: footer"></footer>
+        </div>
+
+        <div th:insert="fragment/foot.html :: foot"></div>
+        <!--        <script src="js/helper/kota.js"></script>-->
+        <!--        <script src="js/helper/provinsi.js"></script>-->
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
+
     </body>
+
 </html>

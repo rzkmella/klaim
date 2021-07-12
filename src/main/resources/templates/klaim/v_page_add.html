@@ -1,16 +1,184 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns:th="http://www.thymeleaf.org">
+    <title>Klaim</title>
+
+    <head th:insert="fragment/head.html :: head">
     </head>
-    <body>
-        <div>TODO write content</div>
+
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+        <div class="wrapper">
+            <nav th:insert="fragment/nav.html :: nav" class="navbar"></nav>
+            <aside th:insert="fragment/aside_employee.html :: aside"></aside>
+
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">
+                                    <b>Klaim</b><small></small>
+                                </h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <span class="pull-right">
+
+
+                                    </span>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="body">
+
+                            <form class="container-md h-auto d-inline-block" th:action="@{/klaim/add/insert}" th:object="${addKlaim}" method="POST">
+
+                                <div class="row">
+                                    <!-- Start Div -->
+                                    <div class="col">
+<!--                                        <div class="form-group col-md">
+                                            <label>Nama Manager<span class="redColor">*</span></label>
+                                            <select th:field="*{idUser}" class="idProvinsiEdit form-control" required>
+                                                <option value="">Pilih</option>
+                                                <option 
+                                                    th:each="user : ${user}"                                
+                                                    th:value="${user.idUser}" 
+                                                    th:text="${user.namaUser}+' - '+${user.idR.namaProvinsi}">
+                                                </option>
+                                            </select>
+                                        </div>-->
+
+                                        <div class="form-group col-md">
+                                            <label>Tgl Klaim</label>                                            
+                                            <input type="date"  th:field="*{tglKlaim}" class="form-control" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md">
+                                            <div class="form-row"> 
+                                                <div class="form-group col-md">
+                                                    <label>Tgl Mulai Dinas</label>                                            
+                                                    <input type="date"  th:field="*{tglMulaiDinasKlaim}" class="form-control" placeholder="">
+                                                </div>
+                                                <div class="form-group col-md">
+                                                    <label>Tgl Akhir Dinas</label>                                            
+                                                    <input type="date"  th:field="*{tglAkhirDinasKlaim}" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md">
+                                            <label>Nama Kota<span class="redColor">*</span></label>
+                                            <select th:field="*{idKota}" class="idProvinsiEdit form-control" required>
+                                                <option value="">Pilih</option>
+                                                <option 
+                                                    th:each="kota : ${kota}"                                
+                                                    th:value="${kota.idKota}" 
+                                                    th:text="${kota.namaKota}+' - '+${kota.idProvinsi.namaProvinsi}">
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md">
+                                            <label>Kegiatan Dinas</label>                                            
+                                            <input type="text"  th:field="*{kegiatanDinasKlaim}" class="form-control" placeholder="" maxlength="200">
+                                        </div>
+                                        <div class="form-group col-md">
+                                            <label>Nama Hotel</label>                                            
+                                            <input type="text"  th:field="*{hotelKlaim}" class="form-control" placeholder="" maxlength="200">
+                                        </div>
+                                        <div class="form-group col-md">
+                                        <div class="form-row"> 
+                                            <div class="form-group col-md">
+                                                <label>Biaya Hotel</label>                                            
+                                                <input type="text" th:field="*{biayaHotelKlaim}" class="form-control" placeholder="" maxlength="10">
+                                            </div>
+                                            <div class="form-group col-md">
+                                                <label>Biaya Konsumsi</label>                                            
+                                                <input type="text"  th:field="*{biayaKonsumsiKlaim}" class="form-control" placeholder="" maxlength="10">
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="form-group col-md">
+                                             
+                                                <div th:each="transportasi : ${transportasi}">
+                                                    <div class="form-row">
+                                                    <div class="form-group col-md">
+
+                                                        <label th:text="${transportasi.namaTransportasi}+ ' id Transportasi' " hidden></label>                                            
+                                                        <input type="text" th:name="${transportasi.namaTransportasi}+'id'" th:value="${transportasi.idTransportasi}" id="" class="form-control" placeholder="" hidden>
+                                                        <label th:text="'Biaya Transportasi '+ ${transportasi.namaTransportasi}"></label>
+                                                        <input type="text" th:name="${transportasi.namaTransportasi}+'biaya'" id="" class="form-control" placeholder="">
+                                                    </div>                                                                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                                        <div class="form-group col-md">
+                                                                                    <label>Total Biaya Transportasi</label>                                            
+                                                                                    <input type="text" th:field="*{totalTransportasi}" class="form-control" placeholder="">
+                                                                                </div>
+                                        
+                                                                                <div class="form-group col-md">
+                                                                                    <label>Total Biaya Klaim</label>                                            
+                                                                                    <input type="text" th:field="*{totalKlaim}" class="form-control" placeholder="">
+                                                                                </div>                                       -->
+
+                                        <div class="form-group col-md">
+                                            <label for="exampleInputFile">Nota Hotel</label>                                        
+                                            <div class="custom-file">
+                                                <input type="file" th:field="*{notaHotelKlaim}" >
+                                            </div>
+                                        </div>    
+                                        <div class="form-group col-md">
+                                            <label for="exampleInputFile">Nota Transportasi</label>                                        
+                                            <div class="custom-file">
+                                                <input type="file" th:field="*{notaTransportasiKlaim}">
+                                            </div>
+                                        </div> 
+                                        <div class="form-group col-md">
+                                            <label for="exampleInputFile">Nota Konsumsi</label>                                        
+                                            <div class="custom-file">
+                                                <input type="file" th:field="*{notaKonsumsiKlaim}">
+                                            </div>
+                                        </div>
+
+                                        <!--                                            <div th:each="transportasi : ${transportasi}">
+                                                                                    <div class="form-group col-md">
+                                                                                        <label th:text="${transportasi.namaTransportasi}+ ' id Transportasi' "></label>                                            
+                                                                                        <input type="text" th:name="${transportasi.namaTransportasi}+'id'" th:value="${transportasi.idTransportasi}" id="" class="form-control" placeholder="">
+                                                                                        <label th:text="${transportasi.namaTransportasi}+ ' biaya Transportasi Detail'"></label>
+                                                                                        <input type="text" th:name="${transportasi.namaTransportasi}+'biaya'" id="" class="form-control" placeholder="">
+                                                                                    </div>                                                                                                 
+                                                                                    </div>-->
+                                        <!-- Button -->
+                                        <div class="position-relative bottom-0 end-0">
+                                            <button type="submit" class="btn btn-primary">Submit Form</button>
+                                        </div>
+                                        <!-- End Button -->
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!--<form th:insert="transportasi/v_page_add.html :: form" id="add-row-form" th:action="@{/transportasi/add}" th:object="${addTransportasi}" method="POST"></form>
+            
+                        <form th:insert="transportasi/v_page_edit.html :: form" id="edit-row-form" th:action="@{/transportasi/edit}" th:object="${editTransportasi}" method="POST"></form>
+            
+                        <form th:insert="transportasi/v_page_remove.html :: form" id="remove-row-form" th:action="@{/transportasi/edit}" th:object="${removeTransportasi}" method="POST"></form>-->
+
+            <footer th:insert="fragment/footer.html :: footer"></footer>
+        </div>
+
+        <div th:insert="fragment/foot.html :: foot"></div>
+        <script src="js/helper/transportasi.js"></script>
+
     </body>
+
 </html>

@@ -64,6 +64,12 @@ public class TblKota implements Serializable {
         this.namaKota = namaKota;
     }
 
+    public TblKota(Integer idKota, String namaKota, Object idProvinsi) {
+        this.idKota = idKota;
+        this.namaKota = namaKota;
+        this.idProvinsi = (TblProvinsi)idProvinsi;
+    }
+
     public Integer getIdKota() {
         return idKota;
     }
